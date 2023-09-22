@@ -5,24 +5,41 @@ import time
 options=[1,2]
 students = ["Beatrice","Bart","Zeek","Jackey Chan","Dwayne","Jack","Mark","Jyden Guy","Asheu","Apu","Ventrax The Conquerer Of The Galaxy","John","Porky","Idinia","Arker"]
 def begin():
-    done=False
+    done = False
     while not done:
         try:
-            key=dict({1:add, 2:search})
             print("Welcome To A Student List\n\n1: Add Student\n2: Search For Student\n3: Exit\n")
             choice = input("What Is Your Choice: ")
-            if choice ==3:
+            key = {1: add, 2: search,}
+            choice = int(choice)
+            if choice == 3:
                 print("Goodbye")
                 done = True
-            elif choice in options:
+            elif choice > 3:
+                print("Invalid choice. Please try again.")
+                time.sleep(1)
+            elif choice in key:
                 key[choice]()
-        except: print("Not")
-            
+        except:
+            print("Invalid choice. Please try again.")
+            time.sleep(1)
 def add():
-    print("cool")
+    name = input("Enter student name to add: ")
+    students.append(name)
+    bubbleSort(students)
+    print("Student data added successfully.")
+    time.sleep(1)
+    
 def search():
-    print("cool2")
-
+    bubbleSort(students)
+    search=input("What Student are you looking for: ")
+    index =binary_search(students, 0, len(students),search)
+    if index != -1:
+        print(f"{search} is at Index {index}.\n")
+        time.sleep(2)
+    else:
+        print(f"{search} not found in the student list.\n")
+        time.sleep(2)
 def bubbleSort(arr):
     n = len(arr)
     # optimize code, so if the array is already sorted, it doesn't need
